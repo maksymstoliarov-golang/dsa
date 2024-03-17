@@ -62,7 +62,6 @@ func (l *List) print() {
 
 	head := l.head
 	for head != nil {
-		//fmt.Println(head.key, "->", head.val)
 		fmt.Println(head)
 		head = head.next
 	}
@@ -84,11 +83,6 @@ func (c *LRUCache) Get(key int) int {
 		return -1
 	}
 
-	//if v.prev != nil {
-	//	v.prev.next = v.next
-	//}
-	//v.next = c.list.head
-	//c.list.head = v
 	if c.list.head.key == key {
 		return item.val
 	}
@@ -96,10 +90,6 @@ func (c *LRUCache) Get(key int) int {
 	if c.list.head == c.list.tail {
 		return item.val
 	}
-
-	//if c.list.tail != nil && c.list.tail.key == key {
-	//	c.list.tail = v.prev
-	//}
 
 	//update prev
 	if item.prev != nil {
@@ -117,10 +107,6 @@ func (c *LRUCache) Get(key int) int {
 	oldHead.prev = item
 
 	c.list.head = item
-	//c.list.tail = oldHead
-	//if oldHead.next == c.list.tail {
-	//	c.list.tail = oldHead
-	//}
 
 	if c.list.tail == item {
 		c.list.tail = item.prev
@@ -133,11 +119,6 @@ func (c *LRUCache) Get(key int) int {
 func (c *LRUCache) Put(key int, value int) {
 	//if already exists
 	if v, ok := c.data[key]; ok {
-		//check if this is tail and set tail to prev
-		//if c.list.tail == v && v.prev != nil {
-		//	c.list.tail = v.prev
-		//}
-
 		//update value of existing node
 		v.val = value
 
@@ -161,18 +142,6 @@ func (c *LRUCache) Put(key int, value int) {
 	c.data[key] = newItem
 
 }
-
-//"LRUCache 2",
-
-//"put 1:1" null
-//"put 2"2" null
-//"get 1" 1
-//"put 3:3" null
-//"get 2" -1
-//"put 4:4" null
-//"get 1" -1
-//"get 3" 3
-//"get 4" 4
 
 func main() {
 	c := Constructor(2)
